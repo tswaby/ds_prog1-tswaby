@@ -12,48 +12,58 @@ void list<T>:: insert(T item, node<T> * &head){
     size++;
 }
 
+//This function is for comparing the book strings against that of the dictionary to see if they are spelled or mispelled
+//if the next pointer (head at the beginning) points to nullptr then the word is obviously misspelled because compare never came back with 0 throughout the entire list. 
+//This is when the function returns false an the count of misspelled words increases and the number of compares(numcmp) is added to number of compares for mispelled(miscmp)
+//however if compare returns 0 then the word is spelled correct and the function returns true and the count of spelled words increases and the number of compares(numcmp) is added to the number of compares for spelled words(spcmp)
+//the function continues in the infinite while loop until it returns a bool with an increase of what the head pointer is to the next pointer so it can traverse through the dictionary linked list
+//
 template<class T>
 bool list<T>:: compare(string word, node<T> * head, unsigned int &numcmp, unsigned int &spcmp, unsigned int &miscmp, list<T> &m){
     while(true){
         if(head == nullptr) return false;
-        int comp = word.compare(head->data); //strcmp(word.c_str(), (head->data).c_str());
+        int comp = word.compare(head->data);
         numcmp++;
         if(comp == 0){
             spcmp += numcmp;
             spell++;
-            //cout << "true " << word << " " << head->data << endl;
             return true;
         }
         else if(head->next == nullptr){
             miscmp += numcmp;
             m.insert(word, m.head);
             mispell++;
-            //cout << "false" << endl;
             return false;
         }
         else{
-            //cout << head->data << endl;
             head = head->next;
-            //return compare(word, head->next, numcmp, spcmp, miscmp, m);
         }
     }
 }
 
+//This function returns the private variable size of the dictionary
+//
 template<class T>
 int list<T>:: getSize(){
     return size;
 }
 
+//This function returns the private variable spell, words spelled correctly
+//
 template<class T>
 int list<T>:: getSpell(){
     return spell;
 }
 
+//This function returns the private variable mispell, words not spelled
+//
 template<class T>
 int list<T>:: getMispell(){
     return mispell;
 }
 
+//This function prints out the mispelled words to a text file
+//
 template<class T>
 void list<T>:: printMis(ofstream &out){
     node<T> * item = head;

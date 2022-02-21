@@ -92,10 +92,12 @@ int main(){
     t.Stop();
     Book.close();
 
-    //ofstream wrong;
-    //wrong.open("SMmispelled.txt");
-    //m.printMis(wrong);
-    //wrong.close();
+    //This is what opens the file for misspelled words and calls on the printMis function of the linked list of misspelled words so they can be printed to this file
+    //
+    ofstream wrong;
+    wrong.open("mispelled.txt");
+    m.printMis(wrong);
+    wrong.close();
 
     //This is the final output of the program
     //
